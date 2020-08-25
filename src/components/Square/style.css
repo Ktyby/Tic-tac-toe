@@ -1,10 +1,9 @@
-.square {
+.game__square {
   background-color: #ffdec6;
   border: 1px solid #f78413;
   float: left;
-  font-size: 32px;
-  font-weight: bold;
-  line-height: 34px;
+  font: 32px "Century Gothic", Futura, sans-serif;
+  color: #f78411;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
@@ -14,10 +13,10 @@
   cursor: pointer;
 }
 
-.square:focus {
+.game__square:focus {
   outline: none;
 }
 
-.kbd-navigation .square:focus {
+.kbd-navigation .game__square:focus {
   background: #ddd;
 }

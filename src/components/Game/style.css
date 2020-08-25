@@ -2,21 +2,16 @@ body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
   display: flex;
+  justify-content: center;
+  background-color: #ffd8ab;
 }
 
 ol, ul {
   padding-left: 30px;
 }
 
-.status {
-  margin-bottom: 10px;
-}
-
 .game {
   display: flex;
-  flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
+  align-items: center;
+  flex-direction: column;
 }

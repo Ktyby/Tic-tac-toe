@@ -2,14 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 
-function Square(props) {
-  const {value, onClick} = props;
-  return (
-    <button className="square" onClick={onClick}>
-      {value}
-    </button>
-  );
-}
+const Square = ({ value, onClick }) => (
+  <button className="game__square" onClick={onClick}>
+    {value}
+  </button>
+);
 
 Square.propTypes = {
   value: PropTypes.string,
