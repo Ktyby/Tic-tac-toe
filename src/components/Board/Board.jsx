@@ -1,8 +1,9 @@
-import React, { createRef } from "react";
+import React from "react";
 import Square from "../Square";
+import ControlZone from "../ControlZone";
 import calculateWinner from "./utils/calculateWinner";
+import * as constants from "./constants.js";
 import "./style.css";
-const FIRST_ELEMENT_FROM_WINNER = 0;
 
 class Board extends React.Component {
   constructor(props) {
@@ -13,14 +14,14 @@ class Board extends React.Component {
     };
   }
 
-  handleClick(i) {
+  handleClick(index) {
     const squares = this.state.squares.slice();
 
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares) || squares[index]) {
       return;
     }
 
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    squares[index] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       squares,
       xIsNext: !this.state.xIsNext
@@ -50,21 +51,22 @@ class Board extends React.Component {
     const winner = calculateWinner(this.state.squares);
     let status;
     if (winner) {
-      status = `Выиграл ${this.state.squares[winner[FIRST_ELEMENT_FROM_WINNER]]}`;
+      status = `Выиграл ${this.state.squares[winner[constants.FIRST_ELEMENT_FROM_WINNER]]}`;
     } else {
       status = this.state.squares.includes(null) ? `Следующий ход: ${this.state.xIsNext ? "X" : "O"}` : "Ничья";  
     }
+
     return (
       <div className="game__board">
         {this.renderSquaresFromRange(0, 2)}
         {this.renderSquaresFromRange(3, 5)}
         {this.renderSquaresFromRange(6, 8)}
+
         <div className="game__status">{status}</div>
-        <button className="game__button" onClick={this.handleButtonClick}>Начать сначала</button>
-        <div className="game__mode">
-          <input className="game__input-mode" type="radio" name="inputMode" id="singlePlayer"/><label className="game__label" htmlFor="singlePlayer">На одного</label>
-          <input className="game__input-mode" type="radio" name="inputMode" id="multiPlayer"/><label className="game__label" htmlFor="multiPlayer">На двоих</label>
-        </div>
+
+        <ControlZone
+          onClick={() => this.handleButtonClick()}
+        />
       </div>
     );
   }

@@ -1,0 +1,1 @@
+export const FIRST_ELEMENT_FROM_WINNER = 0; 

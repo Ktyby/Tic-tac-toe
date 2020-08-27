@@ -1,0 +1,34 @@
+.game__mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 15px;
+}
+
+.game__input-mode {
+  display: none;
+}
+
+.game__label {
+  display: inline-block;
+
+  width: 205px;
+  height: 45px;
+
+  margin-top: 10px;
+  
+  border: 2px solid #f78411;
+  border-radius: 4px;
+  background-image: radial-gradient(circle at 22px 50%, transparent 11px, #f78411 12px, #f78411 13px, transparent 14px);
+  
+  text-align: center;
+  font: 18px/45px "Century Gothic", Futura, sans-serif;
+  color: #f78411;
+  
+  cursor: pointer;
+}
+
+.game__input-mode:checked+.game__label {
+  background-image: radial-gradient(circle at 22px 50%, #f78411 13px, transparent 14px);
+}

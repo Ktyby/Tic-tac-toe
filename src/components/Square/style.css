@@ -1,15 +1,18 @@
 .game__square {
-  background-color: #ffdec6;
-  border: 1px solid #f78413;
-  float: left;
-  font: 32px "Century Gothic", Futura, sans-serif;
-  color: #f78411;
+  width: 82px;
+  height: 82px;
+
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
+
+  border: 1px solid #f78413;
+  background-color: #ffdec6;
+  
   text-align: center;
-  width: 82px;
-  height: 82px;
+  font: 32px "Century Gothic", Futura, sans-serif;
+  color: #f78411;
+  
   cursor: pointer;
 }
 
