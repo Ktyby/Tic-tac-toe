@@ -1,6 +1,6 @@
 import React from "react";
-import Square from "../Square";
 import ControlZone from "../ControlZone";
+import Square from "../Square";
 import calculateWinner from "./utils/calculateWinner";
 import * as constants from "./constants.js";
 import "./style.css";
@@ -11,21 +11,51 @@ class Board extends React.Component {
     this.state = {
       squares: Array(9).fill(null),
       xIsNext: true,
+      gameMode: "two",
     };
   }
 
-  handleClick(index) {
-    const squares = this.state.squares.slice();
+  handleGameTypeChange = (gameMode) => {
+    this.setState({
+      squares: Array(9).fill(null),
+      xIsNext: true,
+      gameMode,
+    });
+  }
 
-    if (calculateWinner(squares) || squares[index]) {
+  handleButtonClick = () => {
+    this.setState({
+      squares: Array(9).fill(null),
+      xIsNext: true
+    });
+  }
+
+  selectSquare = (clickedIndex, squares) => {
+    if (calculateWinner(squares) || squares[clickedIndex]) {
       return;
     }
 
-    squares[index] = this.state.xIsNext ? 'X' : 'O';
+    squares[clickedIndex] = this.state.xIsNext ? 'X' : 'O';
+
     this.setState({
       squares,
       xIsNext: !this.state.xIsNext
     });
+  }
+
+  handleClick = (clickedIndex) => {
+    const squares = this.state.squares.slice();
+
+    this.selectSquare(clickedIndex, squares);
+
+    if (this.state.gameMode === constants.SINGLE_PLAYER_MODE) {
+      const notSelectedSquares = squares.map((square, index) => ({ square, index })).filter(({square}) => square === null);
+      const newSelectedSquare = notSelectedSquares[Math.round(Math.random() * (notSelectedSquares.length - 1))];
+
+      setTimeout(() => {
+        this.selectSquare(newSelectedSquare.index || 0, squares);
+      }, 1000); 
+    }
   }
 
   renderSquaresFromRange(startIndex, finishIndex) {
@@ -40,16 +70,10 @@ class Board extends React.Component {
     return <div className="game__board-row">{arrayOfSquares}</div>
   }
 
-  handleButtonClick = () => {
-    this.setState({
-      squares: Array(9).fill(null),
-      xIsNext: true
-    });
-  }
-
   render() {
     const winner = calculateWinner(this.state.squares);
     let status;
+
     if (winner) {
       status = `Выиграл ${this.state.squares[winner[constants.FIRST_ELEMENT_FROM_WINNER]]}`;
     } else {
@@ -65,7 +89,8 @@ class Board extends React.Component {
         <div className="game__status">{status}</div>
 
         <ControlZone
-          onClick={() => this.handleButtonClick()}
+          onGameTypeChange={this.handleGameTypeChange}
+          onClick={this.handleButtonClick}
         />
       </div>
     );
