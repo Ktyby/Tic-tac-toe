@@ -1,2 +1,2 @@
 export const FIRST_ELEMENT_FROM_WINNER = 0; 
-export const SINGLE_PLAYER_MODE = "one";
+export const COMPUTER_STEP_TIMEOUT_DURATION = 300;
