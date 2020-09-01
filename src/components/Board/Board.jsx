@@ -36,10 +36,6 @@ class Board extends React.Component {
   selectSquare = (clickedIndex, squares) => {
     this.computerStepTimeout = null;
 
-    if (calculateWinner(squares) || squares[clickedIndex]) {
-      return;
-    }
-
     squares[clickedIndex] = this.state.xIsNext ? 'X' : 'O';
 
     this.setState({
@@ -55,14 +51,17 @@ class Board extends React.Component {
 
     const squares = this.state.squares.slice();
 
+    if (calculateWinner(squares) || squares[clickedIndex]) {
+      return;
+    }
+
     this.selectSquare(clickedIndex, squares);
 
     if (this.state.gameMode === SINGLE_PLAYER_MODE) {
       const notSelectedSquares = squares.map((square, index) => ({ square, index })).filter(({square}) => square === null);
       const newSelectedSquare = notSelectedSquares[Math.round(Math.random() * (notSelectedSquares.length - 1))];
-
       this.computerStepTimeout = setTimeout(() => {
-        this.selectSquare(newSelectedSquare && newSelectedSquare.index, squares || 0);
+        this.selectSquare(newSelectedSquare && newSelectedSquare.index, squares);
       }, COMPUTER_STEP_TIMEOUT_DURATION ); 
     }
   }
