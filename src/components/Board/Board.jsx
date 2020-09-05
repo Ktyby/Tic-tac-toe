@@ -36,6 +36,10 @@ class Board extends React.Component {
   selectSquare = (clickedIndex, squares) => {
     this.computerStepTimeout = null;
 
+    if (calculateWinner(squares)) {
+      return;
+    }
+
     squares[clickedIndex] = this.state.xIsNext ? 'X' : 'O';
 
     this.setState({
@@ -51,7 +55,7 @@ class Board extends React.Component {
 
     const squares = this.state.squares.slice();
 
-    if (calculateWinner(squares) || squares[clickedIndex]) {
+    if (squares[clickedIndex]) {
       return;
     }
 
